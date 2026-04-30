@@ -1,8 +1,54 @@
-import { useEffect, useState } from "react";
-import { getProfile } from "../services/profile";
+import { useEffect, useState, useRef } from "react";
+import { getProfile, updateProfile } from "../services/profile";
 
 function Hero() {
   const [profile, setProfile] = useState({});
+  const [isEditingImage, setIsEditingImage] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [preview, setPreview] = useState("");
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (f) {
+      setSelectedFile(f);
+      const url = URL.createObjectURL(f);
+      setPreview(url);
+    }
+  };
+
+  const handleEditClick = () => {
+    setIsEditingImage(true);
+  };
+
+  const handleCancel = () => {
+    setIsEditingImage(false);
+    setSelectedFile(null);
+    setPreview("");
+    if (fileInputRef.current) fileInputRef.current.value = null;
+  };
+
+  const handleSaveImage = async () => {
+    if (!profile._id) return alert("Profile ID missing");
+    if (!selectedFile) return alert("Select an image first");
+    const formData = new FormData();
+    formData.append("profileImage", selectedFile);
+    try {
+      const res = await updateProfile(profile._id, formData);
+      const updated = res?.data || res;
+      setProfile(updated);
+      handleCancel();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to upload image");
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -18,8 +64,25 @@ function Hero() {
 
       <div className="relative max-w-7xl mx-auto min-h-screen flex items-center px-10">
         {/* Left image */}
-        <div className="w-1/2 relative">
-          <img src={profile.profileImage} alt="" className="w-180 max-w-none object-contain translate-y-10"/>
+        <div className="w-1/3 h-80 relative">
+          <img src={preview || profile.profileImage} alt="" className="w-180 max-w-none h-140 translate-y-10"/>
+
+          <div className="absolute -top-2 right-3 z-30 flex items-center gap-2">
+            {!isEditingImage ? (
+              <button onClick={handleEditClick} className="bg-black/60 border border-amber-600  px-3 py-1 text-amber-500 rounded backdrop-blur-sm">
+                Edit Image
+              </button>
+            ) : (
+              <div className="flex items-center gap-2">
+                <input id="hero-image-input" ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
+                <label htmlFor="hero-image-input" className="bg-black/60 border border-amber-600 px-3 py-1 text-amber-500 rounded cursor-pointer">Choose</label>
+
+                <button onClick={handleSaveImage} className="bg-black/60 border border-amber-600 px-3 py-1 text-amber-500 rounded">Save</button>
+
+                <button onClick={handleCancel} className="bg-black/40 border border-gray-700 px-3 py-1 rounded">Cancel</button>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Right text */}
@@ -28,14 +91,11 @@ function Hero() {
             THASE <br /> WEBB
           </h1>
 
-          <button className=" mt-10 border border-amber-600 px-10 py-4 tracking-widest text-white ">
-            MESSAGE
-          </button>
         </div>
 
         {/* Floating stats */}
         <div
-          className=" absolute bottom-8 left-1/2 -translate-x-1/2 border text-white border-amber-600 rounded-2xl px-20 py-8 flex gap-24 backdrop-blur-md ">
+          className=" absolute bottom-1 left-160 -translate-x-1/2 border text-white border-amber-600 rounded-2xl px-10 py-1 mb-10 flex gap-20 backdrop-blur-md  ">
           <div className="text-center">
             <h2 className="text-6xl font-bold">2K+</h2>
             <p className="tracking-[8px]">Cases</p>

@@ -30,7 +30,7 @@ export const updateCase = async(req, res) => {
     try {
         const caseId = req.params.id 
         const updatedCase = await Case.findByIdAndUpdate(caseId, req.body, 
-            {new : true, runValidators : true}
+            { returnDocument: 'after', runValidators : true }
         )
         if(!updatedCase){
             return res.status(404).json({success : false, message : 'case not found'})

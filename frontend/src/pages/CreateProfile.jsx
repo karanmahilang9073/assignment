@@ -38,13 +38,11 @@ function CreateProfile() {
             <label className="block text-white mb-4">
               Upload Profile Image
             </label>
-
             <input type="file" onChange={(e) => setProfileImage(e.target.files[0])} className="w-full border border-amber-600 p-4 rounded-xl text-white"/>
           </div>
 
           <div>
             <label className="block text-white mb-4">About Me</label>
-
             <textarea rows="8" value={about} onChange={(e) => setAbout(e.target.value)} className="w-full border border-amber-600 bg-transparent p-6 rounded-2xl text-white"/>
           </div>
 

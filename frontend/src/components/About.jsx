@@ -31,29 +31,28 @@ function AboutSection() {
   };
 
   return (
-    <section className="min-h-screen bg-black relative overflow-hidden">
+    <section className="bg-black relative overflow-hidden py-16">
       <div className="absolute inset-0 bg-linear-to-r from-[#1a0802] via-black to-black"></div>
 
-      <div className="relative max-w-7xl mx-auto grid md:grid-cols-[50%_50%] items-centermin-h-screen px-16">
-        <div>
-          <h2 className="text-white text-[30px] leading-loosemax-w-2xl">ABOUT ME</h2>
+      <div className="relative max-w-4xl mx-auto grid md:grid-cols-2 items-center gap-8 px-6">
+        <div className="p-6">
+          <h2 className="text-white text-3xl leading-tight max-w-2xl mb-4">ABOUT ME</h2>
 
-          <div className="border-l border-white pl-8">
+          <div className="border-l border-white pl-6">
             {isEditing ? (
               <>
-                <textarea rows="8" value={editingAbout} onChange={(e) => setEditingAbout(e.target.value)}className="w-full max-w-xl bg-transparentborder border-amber-600 p-5 rounded-xl text-white"/>
-                <button onClick={saveAbout} className=" mt-6 border border-amber-600 px-6 py- text-amber-500 rounded-xl ">
+                <textarea rows="6" value={editingAbout} onChange={(e) => setEditingAbout(e.target.value)} className="w-full max-w-xl bg-transparent border border-amber-600 p-4 rounded-xl text-white"/>
+                <button onClick={saveAbout} className="mt-4 border border-amber-600 px-4 py-2 text-amber-500 rounded-xl">
                   Save
                 </button>
               </>
             ) : (
               <>
-                <p className="text-white text-2xl leading-loose max-w-xl">
+                <p className="text-white text-base leading-relaxed max-w-xl">
                   {profile.about}
                 </p>
 
-                <button
-                  onClick={() => setIsEditing(true)} className=" mt-6 border border-amber-600 px-6 py-3 text-amber-500 rounded-xl ">
+                <button onClick={() => setIsEditing(true)} className="mt-4 border border-amber-600 px-4 py-2 text-amber-500 rounded-xl">
                   Edit About
                 </button>
               </>
@@ -61,8 +60,8 @@ function AboutSection() {
           </div>
         </div>
 
-        <div className="flex justify-end">
-          <img src={statue} alt="" className=" max-w-none translate-x-20" />
+        <div className="flex justify-center items-center">
+          <img src={statue} alt="" className="w-56 h-auto object-contain" />
         </div>
       </div>
     </section>
