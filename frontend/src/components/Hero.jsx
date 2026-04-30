@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { getProfile, updateProfile } from "../services/profile";
+import Qr from "./Qr";
+
 
 function Hero() {
   const [profile, setProfile] = useState({});
@@ -85,12 +87,11 @@ function Hero() {
           </div>
         </div>
 
-        {/* Right text */}
-        <div className="w-1/2 flex flex-col items-start pl-12">
-          <h1 className=" text-[150px] leading-[0.9] font-bold texwh text-amber-600">
-            THASE <br /> WEBB
-          </h1>
-
+        {/* Right QR code */}
+        <div className="w-10 flex flex-col items-start pl-20">
+          <div className="flex justify-center items-center ml-40 h-45">
+            <Qr />
+          </div>
         </div>
 
         {/* Floating stats */}
