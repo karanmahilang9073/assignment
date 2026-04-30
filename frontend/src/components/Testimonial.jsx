@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTestimonials, updateTestimonial } from "../services/testimonial";
+import { getTestimonials, updateTestimonial, createTestimonial } from "../services/testimonial";
 
 import { getProfile } from "../services/profile";
 
@@ -11,7 +11,7 @@ function Testimonials() {
   const [editText, setEditText] = useState("");
 
   useEffect(() => {
-      const loadData = async () => {
+    const loadData = async () => {
       const t = await getTestimonials();
       const p = await getProfile();
       const data = t?.data?.[0] || {};
@@ -23,25 +23,34 @@ function Testimonials() {
     loadData();
   }, []);
 
-  
 
-  const saveTestimonial = async () => {
-    if (!testimonial._id) {
-      alert("Testimonial ID is missing. Cannot update testimonial.");
-      return;
-    }
+const saveTestimonial = async () => {
+  if (!testimonial._id) {
+    // CREATE instead of UPDATE
+    const formData = new FormData();
+    formData.append("text", editText);
+
+    const res = await createTestimonial(formData);
+
+    setTestimonial(res.data);
+  } else {
     await updateTestimonial(testimonial._id, { text: editText });
+
     setTestimonial({
       ...testimonial,
       text: editText,
     });
-    setIsEditing(false);
-  };
+  }
+
+  setIsEditing(false);
+};
 
   return (
     <section className="bg-linear-to-b from-[#2b0906] via-black to-black py-12">
-      <div className="max-w-4xl mx-auto px-6">
-        <h2 className="text-center text-2xl font-bold text-amber-600 mb-8">CLIENT TESTIMONIALS</h2>
+      <div className="w-150 mx-auto px-6">
+        <h2 className="text-center text-2xl font-bold text-amber-600 mb-8">
+          CLIENT TESTIMONIALS
+        </h2>
 
         <div className="border border-gray-700 rounded-2xl p-6">
           <div className="grid md:grid-cols-2 gap-6 items-center">
@@ -59,18 +68,21 @@ function Testimonials() {
               ) : (
                 <>
                   <p className="text-white text-base leading-relaxed max-w-xl">
-                    {testimonial?.text || "Lorem ipsum dolor sit amet consectetur adipiscing elit"}
+                    {testimonial?.text ||
+                      "Lorem ipsum dolor sit amet consectetur adipiscing elit"}
                   </p>
 
-                  <button onClick={() => setIsEditing(true)} className="mt-4 border border-amber-600 px-4 py-2 rounded-xl text-amber-500">
-                    Edit Testimonial
-                  </button>
+                  {testimonial?._id && !isEditing && (
+                    <button onClick={() => setIsEditing(true)} className="mt-4 border border-amber-600 px-4 py-2 rounded-xl text-amber-500">
+                      Edit Testimonial
+                    </button>
+                  )}
                 </>
               )}
             </div>
 
             <div className="flex justify-center">
-              <img src={profile.profileImage} alt="" className="w-40 h-auto object-cover rounded-2xl" />
+              <img src={profile.profileImage} alt="" className="w-40 h-40 object-cover rounded-2xl"/>
             </div>
           </div>
         </div>
