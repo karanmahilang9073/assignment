@@ -68,14 +68,14 @@ function Hero() {
 
   return (
     <section className="min-h-screen bg-black relative overflow-hidden">
-      <div className="absolute inset-0 bg-linear-to-r from-black via-black to-[#2b1206]" />
+      <div className="absolute inset-0 bg-linear-to-r from-black via-black to-red-900" />
 
-      <div className="relative max-w-7xl mx-auto min-h-screen flex items-center px-10">
+      <div className="relative  ml-40 min-h-screen flex items-center px-50 pb-90 ">
         {/* Left image */}
-        <div className="w-1/3 h-80 relative">
+        <div className="w-90 h-70 relative">
           <img src={preview || profile.profileImage} alt="" className="w-180 max-w-none h-140 translate-y-10"/>
 
-          <div className="absolute -top-2 right-3 z-30 flex items-center gap-2">
+          <div className="absolute -top-1 right-3 z-50 flex items-center gap-2">
             {!isEditingImage ? (
               <button onClick={handleEditClick} className="bg-black/60 border border-amber-600  px-3 py-1 text-amber-500 rounded backdrop-blur-sm">
                 Edit Image
@@ -83,15 +83,13 @@ function Hero() {
             ) : (
               <div className="flex items-center gap-2">
                 <input id="hero-image-input" ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
-                <label htmlFor="hero-image-input" className="bg-black/60 border border-amber-600 px-3 py-1 text-amber-500 rounded cursor-pointer">Choose</label>
+                <label htmlFor="hero-image-input" className="bg-black border border-amber-600 px-3 py-1 text-amber-500 rounded cursor-pointer">Choose</label>
 
-                <button  onClick={handleSaveImage}  disabled={isLoading} className={`bg-black/60 border border-amber-600 px-3 py-1 rounded ${isLoading ? "text-gray-400 opacity-50 cursor-not-allowed" : "text-amber-500 cursor-pointer"}`}
-                >
+                <button  onClick={handleSaveImage}  disabled={isLoading} className={`bg-black/60 border border-amber-600 px-3 py-1 rounded ${isLoading ? "text-gray-400 opacity-50 cursor-not-allowed" : "text-amber-500 cursor-pointer"}`}>
                   {isLoading ? "Uploading..." : "Save"}
                 </button>
 
-                <button  onClick={handleCancel}  disabled={isLoading} className="bg-black/40 border text-amber-500 border-gray-700 px-3 py-1 rounded"
-                >
+                <button  onClick={handleCancel}  disabled={isLoading} className="bg-black/40 border text-amber-500 border-gray-700 px-3 py-1 rounded">
                   Cancel
                 </button>
               </div>
@@ -100,9 +98,10 @@ function Hero() {
         </div>
 
         {/* QR code */}
-        <div className="w-10 flex flex-col items-start pl-20">
-          <div className="flex justify-center items-center ml-40 h-45">
+        <div className="w-10 flex flex-col items-start pl-20 mt-10">
+          <div className="flex justify-center items-center ml-30 h-45">
             <Qr />
+            
           </div>
         </div>
 

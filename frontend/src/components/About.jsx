@@ -32,7 +32,7 @@ function AboutSection() {
 
   return (
     <section className="bg-black relative overflow-hidden py-16">
-      <div className="absolute inset-0 bg-linear-to-r from-[#1a0802] via-black to-black"></div>
+      <div className="absolute inset-0 bg-linear-to-r from-red-950 via-black to-black"></div>
 
       <div className="relative max-w-4xl mx-auto grid md:grid-cols-2 items-center gap-8 px-6">
         <div className="p-6">
