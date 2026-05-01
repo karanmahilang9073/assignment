@@ -11,14 +11,18 @@ function CreateProfile() {
   const submit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("about", about);
-    formData.append("profileImage", profileImage);
+    try {
+      const formData = new FormData();
+      formData.append("about", about);
+      formData.append("profileImage", profileImage);
 
-    await createProfile(formData);
+      await createProfile(formData);
 
-    alert("Profile Created");
-    navigate("/");
+      alert("Profile Created");
+      navigate("/");
+    } catch (error) {
+      alert("Error: " + (error.response?.data?.message || error.message || "Failed to create profile"));
+    }
   };
 
   return (

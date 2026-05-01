@@ -10,10 +10,13 @@ function CreateCase() {
   const submit = async (e) => {
     e.preventDefault();
 
-    await addCase({ description });
-
-    alert("Case Added");
-    navigate("/");
+    try {
+      await addCase({ description });
+      alert("Case Added");
+      navigate("/");
+    } catch (error) {
+      alert("Error: " + (error.response?.data?.message || error.message || "Failed to add case"));
+    }
   };
 
   return (

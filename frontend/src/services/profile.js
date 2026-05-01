@@ -1,13 +1,7 @@
 import API from "./api"
 
-const multipartConfig = {
-    headers: {
-        "Content-Type": "multipart/form-data"
-    }
-}
-
 export const createProfile = async (profileData) => {
-    const res = await API.post("/profile", profileData, multipartConfig)
+    const res = await API.post("/profile", profileData)
     return res.data
 }
 
@@ -17,7 +11,7 @@ export const getProfile = async (id) => {
 }
 
 export const updateProfile = async (id, profileData) => {
-    const res = await API.put(`/profile/${id}`, profileData, multipartConfig)
+    const res = await API.put(`/profile/${id}`, profileData)
     return res.data
 }
 

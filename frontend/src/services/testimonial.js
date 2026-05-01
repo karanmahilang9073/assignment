@@ -1,13 +1,7 @@
 import API from "./api"
 
-const multipartConfig = {
-    headers: {
-        "Content-Type": "multipart/form-data"
-    }
-}
-
 export const createTestimonial = async (testimonialData) => {
-    const res = await API.post("/testimonial", testimonialData, multipartConfig)
+    const res = await API.post("/testimonial", testimonialData)
     return res.data
 }
 
