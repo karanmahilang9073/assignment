@@ -8,6 +8,7 @@ function Hero() {
   const [isEditingImage, setIsEditingImage] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
@@ -33,16 +34,21 @@ function Hero() {
   const handleSaveImage = async () => {
     if (!profile._id) return alert("Profile ID missing");
     if (!selectedFile) return alert("Select an image first");
+    
+    setIsLoading(true);
     const formData = new FormData();
     formData.append("profileImage", selectedFile);
+    
     try {
       const res = await updateProfile(profile._id, formData);
-      const updated = res?.data || res;
-      setProfile(updated);
+      setProfile(res?.data || res);
+      alert("Image uploaded successfully!");
       handleCancel();
     } catch (err) {
-      console.error(err);
-      alert("Failed to upload image");
+      console.error("Upload error:", err);
+      alert(err?.response?.data?.message || "Failed to upload image");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -79,22 +85,28 @@ function Hero() {
                 <input id="hero-image-input" ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
                 <label htmlFor="hero-image-input" className="bg-black/60 border border-amber-600 px-3 py-1 text-amber-500 rounded cursor-pointer">Choose</label>
 
-                <button onClick={handleSaveImage} className="bg-black/60 border border-amber-600 px-3 py-1 text-amber-500 rounded">Save</button>
+                <button  onClick={handleSaveImage}  disabled={isLoading} className={`bg-black/60 border border-amber-600 px-3 py-1 rounded ${isLoading ? "text-gray-400 opacity-50 cursor-not-allowed" : "text-amber-500 cursor-pointer"}`}
+                >
+                  {isLoading ? "Uploading..." : "Save"}
+                </button>
 
-                <button onClick={handleCancel} className="bg-black/40 border border-gray-700 px-3 py-1 rounded">Cancel</button>
+                <button  onClick={handleCancel}  disabled={isLoading} className="bg-black/40 border text-amber-500 border-gray-700 px-3 py-1 rounded"
+                >
+                  Cancel
+                </button>
               </div>
             )}
           </div>
         </div>
 
-        {/* Right QR code */}
+        {/* QR code */}
         <div className="w-10 flex flex-col items-start pl-20">
           <div className="flex justify-center items-center ml-40 h-45">
             <Qr />
           </div>
         </div>
 
-        {/* Floating stats */}
+        {/* stats */}
         <div
           className=" absolute bottom-1 left-160 -translate-x-1/2 border text-white border-amber-600 rounded-2xl px-10 py-1 mb-10 flex gap-20 backdrop-blur-md  ">
           <div className="text-center">
