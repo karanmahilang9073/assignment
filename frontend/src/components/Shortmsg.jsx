@@ -1,6 +1,6 @@
 function ShortMessage() {
   return (
-    <section className="bg-black py-12 bg-linear-to-r from-orange-900 to-black">
+    <section className="bg-black py-12 bg-linear-to-b from-orange-900 to-black">
       <div className="max-w-3xl text-center px-6 mx-auto">
         <div className="w-24 h-px bg-amber-600 mx-auto mb-6"></div>
 

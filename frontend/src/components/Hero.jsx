@@ -107,7 +107,7 @@ function Hero() {
 
         {/* stats */}
         <div
-          className=" absolute bottom-1 left-160 -translate-x-1/2 border text-white border-amber-600 rounded-2xl px-10 py-1 mb-10 flex gap-20 backdrop-blur-md  ">
+          className=" absolute bottom-3 left-160 -translate-x-1/2 border text-white border-amber-600 rounded-2xl px-10 py-1 mb-10 flex gap-20 backdrop-blur-md  ">
           <div className="text-center">
             <h2 className="text-6xl font-bold">2K+</h2>
             <p className="tracking-[8px]">Cases</p>

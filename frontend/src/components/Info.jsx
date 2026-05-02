@@ -1,7 +1,8 @@
 function InfoCards() {
   return (
-    <section className="bg-black py-12">
-      <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6 px-6 w-full">
+    <section className="bg-linear-to-l from-orange-900 to-black py-12 max-h-110">
+      <div className="w-250 mx-auto grid md:grid-cols-2 gap-8 px-6  ">
+
         {/* Education */}
         <div className="border border-amber-600 rounded-2xl p-6">
           <div className="text-center">

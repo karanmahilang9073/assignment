@@ -23,11 +23,11 @@ function RecentCases() {
   };
 
   return (
-    <section className="bg-[radial-gradient(circle_at_left,#2b1206_0%,#000_65%)] py-12">
+    <section className="bg-linear-to-r from-orange-950 to-black py-12">
       <div className="max-w-4xl mx-auto px-6">
         {/* heading row */}
-        <div className="flex items-center justify-center gap-6 mb-6 ml-110">
-          <div className="w-40 h-px bg-amber-600"></div>
+        <div className="flex items-center justify-center gap-2 mb-6 ml-">
+          <div className="w-155 h-px bg-amber-600"></div>
           <h2 className="text-2xl font-bold text-amber-600 leading-none">MY RECENT CASES</h2>
         </div>
 
@@ -35,7 +35,7 @@ function RecentCases() {
         {/* cards */}
         <div className="relative grid md:grid-cols-3 mt-8 gap-6 z-10">
           {cases.slice(index, index + 3).map((item) => (
-            <div key={item._id} className="border border-amber-600 rounded-2xl p-6 backdrop-blur-md bg-black/40 flex items-center min-h-40">
+            <div key={item._id} className="border border-amber-600  rounded-2xl p-6 backdrop-blur-md bg-black flex items-center justify-center h-40">
               <p className="text-white text-sm leading-relaxed text-center">{item.description}</p>
             </div>
           ))}
