@@ -108,7 +108,7 @@ function Testimonials() {
           CLIENT TESTIMONIALS
         </h2>
 
-        {/* Create New Testimonial Button/Form */}
+        {/* Create New Testimonial  */}
         {!isCreating ? (
           <div className="text-center mb-8">
             <button  onClick={() => setIsCreating(true)} className="border border-amber-600 px-6 py-3 rounded-xl text-amber-500 hover:bg-amber-600 hover:text-black font-semibold transition">
@@ -131,7 +131,7 @@ function Testimonials() {
               )}
             </div>
 
-            {/* Save/Cancel Buttons */}
+            {/* create and cancel button */}
             <div className="flex gap-2">
               <button  onClick={createNewTestimonial} className="border border-amber-600 px-6 py-2 rounded-xl text-amber-500 hover:bg-amber-600 hover:text-black font-semibold transition">
                 Create
@@ -143,7 +143,7 @@ function Testimonials() {
           </div>
         )}
 
-        {/* Carousel Display */}
+        {/* card */}
         {testimonials.length > 0 && !isCreating ? (
           <div>
             <div className="border border-gray-700 rounded-2xl p-8">
@@ -154,7 +154,7 @@ function Testimonials() {
 
                   {editingId === currentTestimonial?._id ? (
                     <>
-                      {/* Edit Mode */}
+                      {/* Edit*/}
                       <textarea  rows="6"  value={editText}  onChange={(e) => setEditText(e.target.value)}  className="w-full bg-transparent border border-amber-600 rounded-xl p-4 text-white mb-4" />
 
                       <div className="mb-4">
@@ -175,7 +175,7 @@ function Testimonials() {
                     </>
                   ) : (
                     <>
-                      {/* Display Mode */}
+                      {/* Display  */}
                       <p className="text-white text-base leading-relaxed mb-4">
                         {currentTestimonial?.text || "No testimonial text"}
                       </p>
